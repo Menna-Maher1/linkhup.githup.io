@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f8f7f3" />
+  <title>Link Hub | كل روابطك في مكان واحد</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+  <style>
+    :root {
+      --bg: #f8f7f3;
+      --ink: #18324b;
+      --muted: #62748a;
+      --green: #dff4e8;
+      --blue: #e8f1ff;
+      --pink: #fff0f5;
+      --cream: #fff5e3;
+      --lavender: #f0edfb;
+      --line: #e5e8ed;
+      --shadow: 0 8px 22px rgba(32, 52, 73, .07);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; color: var(--ink); background:
+        radial-gradient(ellipse at top left, #dbe9df 0, transparent 23rem),
+        radial-gradient(ellipse at bottom right, #f5e7d9 0, transparent 24rem),
+        var(--bg);
+      font-family: Tahoma, Arial, sans-serif; min-height: 100vh;
+    }
+    .container { width: min(760px, 100% - 28px); margin: 0 auto; padding: 30px 0 24px; }
+    header { text-align: center; padding: 10px 0 22px; }
+    .avatar {
+      width: 94px; height: 94px; border-radius: 50%; margin: 0 auto 14px;
+      display: grid; place-items: center; font-size: 42px;
+      color: #58748c; background: linear-gradient(145deg, #e6ebf4, #fff);
+      border: 2px solid #76918f; box-shadow: inset 0 0 0 7px #ffffffaa;
+    }
+    h1 { font-size: clamp(1.35rem, 4vw, 1.8rem); margin: 0 0 8px; }
+    .subtitle { color: var(--muted); margin: 0; line-height: 1.7; }
+    .links { display: grid; gap: 12px; margin: 12px 0 30px; }
+    .link-card {
+      display: flex; align-items: center; gap: 14px; min-height: 82px;
+      padding: 13px 16px; border: 1px solid #dfe5ec; border-radius: 24px;
+      text-decoration: none; color: inherit; box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease; background: white;
+    }
+    .link-card:hover { transform: translateY(-2px); box-shadow: 0 12px 25px #20344915; }
+    .link-card:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #7c9fcd; outline-offset: 3px; }
+    .link-card.blue { background: linear-gradient(110deg, #e8f1ff, #f5f8ff); }
+    .link-card.pink { background: linear-gradient(110deg, #fff0f5, #fff8fa); }
+    .link-card.green { background: linear-gradient(110deg, #e7f9ef, #f6fff9); }
+    .link-card.cream { background: linear-gradient(110deg, #fff5e3, #fffaf1); }
+    .link-card.lavender { background: linear-gradient(110deg, #f0edfb, #faf9ff); }
+    .link-icon {
+      flex: 0 0 52px; width: 52px; height: 52px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 25px; font-weight: 700;
+      color: white; background: #315eaa;
+    }
+    .facebook { background: #1877f2; } .instagram { background: linear-gradient(35deg,#ffb02e,#e1306c,#833ab4); }
+    .tiktok { background: #111; } .whatsapp { background: #20bd68; }
+    .google { background: #fff; color: #4285f4; border: 1px solid #edf0f4; }
+    .maps { background: #fff; color: #34a853; border: 1px solid #edf0f4; }
+    .generic { background: #6b7892; }
+    .link-copy { flex: 1; min-width: 0; }
+    .link-title { font-weight: 700; font-size: 1.02rem; margin-bottom: 5px; }
+    .link-desc { color: var(--muted); font-size: .9rem; line-height: 1.5; overflow-wrap: anywhere; }
+    .arrow { font-size: 25px; color: #294765; padding-inline: 4px; }
+    .section-title {
+      display: flex; align-items: center; gap: 12px; margin: 28px 0 16px;
+      font-size: 1.25rem; text-align: center;
+    }
+    .section-title::before, .section-title::after { content: ""; height: 1px; background: #cbd2d9; flex: 1; }
+    .payments { display: grid; grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 10px; }
+    .payment {
+      min-height: 105px; display: flex; flex-direction: column; justify-content: center;
+      align-items: center; gap: 10px; padding: 14px 8px; text-align: center;
+      background: #fff; border: 1px solid #edf0f3; border-radius: 20px; box-shadow: var(--shadow);
+      font-size: .88rem;
+    }
+    .payment .symbol { font-size: 25px; }
+    .review {
+      margin-top: 26px; padding: 18px; display: flex; align-items: center; gap: 14px;
+      border-radius: 24px; background: var(--lavender); text-decoration: none; color: inherit;
+      border: 1px solid #e9e4fa;
+    }
+    .stars { color: #f0a900; font-size: 1.3rem; letter-spacing: 2px; white-space: nowrap; }
+    .review-text { flex: 1; }
+    .review-text strong { display: block; margin-bottom: 5px; }
+    .review-text span { color: var(--muted); font-size: .9rem; }
+    footer { text-align: center; color: #7c8490; padding: 28px 0 8px; font-style: italic; }
+    .admin-toggle {
+      display: block; margin: 18px auto 0; border: 1px solid #d8dee7; border-radius: 999px;
+      padding: 10px 16px; background: #ffffffc9; color: #314b65; cursor: pointer;
+      font: inherit;
+    }
+    .editor { display: none; margin: 18px 0; padding: 18px; background: white; border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--shadow); }
+    .editor.open { display: block; }
+    .editor h2 { font-size: 1.1rem; margin: 0 0 8px; }
+    .hint { color: var(--muted); font-size: .88rem; line-height: 1.7; margin: 0 0 14px; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    label { display: block; font-size: .88rem; font-weight: 700; margin-bottom: 6px; }
+    input, select { width: 100%; padding: 11px 12px; border: 1px solid #d9e0e8; border-radius: 11px; font: inherit; color: var(--ink); background: white; }
+    .field { margin-bottom: 12px; min-width: 0; }
+    .actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 8px; }
+    .btn { border: 0; border-radius: 11px; padding: 11px 15px; font: inherit; cursor: pointer; background: #234b68; color: white; }
+    .btn.secondary { background: #edf1f5; color: #2c4358; }
+    .btn.danger { background: #fff0f0; color: #a43333; }
+    .editor-list { margin-top: 14px; display: grid; gap: 8px; }
+    .editor-item { display: flex; align-items: center; gap: 8px; border: 1px solid var(--line); padding: 9px; border-radius: 12px; }
+    .editor-item span { flex: 1; overflow-wrap: anywhere; font-size: .9rem; }
+    .editor-item button { border: 0; border-radius: 8px; padding: 7px 9px; cursor: pointer; }
+    .empty { color: var(--muted); text-align: center; padding: 14px; border: 1px dashed #ccd4df; border-radius: 12px; }
+    .notice { display: none; margin-top: 12px; padding: 10px; border-radius: 10px; background: #e8f7ee; color: #21643b; font-size: .9rem; }
+    @media (max-width: 520px) {
+      .container { width: min(100% - 20px, 760px); padding-top: 18px; }
+      .link-card { min-height: 76px; padding: 11px 12px; gap: 11px; border-radius: 20px; }
+      .link-icon { width: 46px; height: 46px; flex-basis: 46px; font-size: 22px; }
+      .link-title { font-size: .96rem; } .link-desc { font-size: .82rem; }
+      .field-grid { grid-template-columns: 1fr; gap: 0; }
+      .review { padding: 14px; gap: 10px; flex-wrap: wrap; }
+      .stars { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <div class="avatar" aria-hidden="true">♡</div>
+      <h1 id="pageTitle">كل روابطك في مكان واحد</h1>
+      <p class="subtitle" id="pageSubtitle">تابع • تواصل • اكتشف المزيد</p>
+    </header>
+
+    <section class="links" id="links" aria-label="الروابط"></section>
+
+    <section>
+      <h2 class="section-title">طرق الدفع</h2>
+      <div class="payments" id="payments">
+        <div class="payment"><span class="symbol">💵</span><span>كاش</span></div>
+        <div class="payment"><span class="symbol">💳</span><span>Visa / Mastercard</span></div>
+        <div class="payment"><span class="symbol">📱</span><span>محفظة إلكترونية</span></div>
+        <div class="payment"><span class="symbol">⚡</span><span>InstaPay</span></div>
+        <div class="payment"><span class="symbol">💜</span><span>ميزة</span></div>
+      </div>
+    </section>
+
+    <a class="review" href="#" id="reviewLink" target="_blank" rel="noopener noreferrer">
+      <div class="link-icon google">G</div>
+      <div class="review-text"><strong>قيّمنا على Google</strong><span>رأيك يهمنا جدًا!</span></div>
+      <div class="stars" aria-label="خمس نجوم">★★★★★</div><span class="arrow">‹</span>
+    </a>
+
+    <footer>شكرًا لوجودك هنا ♡</footer>
+
+    <button class="admin-toggle" id="toggleEditor" type="button">⚙️ تخصيص الصفحة وإضافة الروابط</button>
+
+    <section class="editor" id="editor" aria-label="تخصيص الصفحة">
+      <h2>خصّصي صفحتك</h2>
+      <p class="hint">غيّري العنوان والوصف، أضيفي روابطك أو احذفي أي رابط. التعديلات تُحفظ على هذا المتصفح فقط. لمشاركة نفس التعديلات مع الآخرين، ارفعي الصفحة بعد تخصيصها إلى استضافة.</p>
+      <div class="field">
+        <label for="titleInput">عنوان الصفحة</label>
+        <input id="titleInput" maxlength="70" placeholder="مثال: كل روابطك في مكان واحد" />
+      </div>
+      <div class="field">
+        <label for="subtitleInput">الوصف القصير</label>
+        <input id="subtitleInput" maxlength="120" placeholder="مثال: تابع • تواصل • اكتشف المزيد" />
+      </div>
+      <hr style="border:0;border-top:1px solid #edf0f3;margin:18px 0">
+      <h2>إضافة رابط جديد</h2>
+      <div class="field-grid">
+        <div class="field">
+          <label for="linkName">اسم الرابط</label>
+          <input id="linkName" maxlength="50" placeholder="مثال: Instagram" />
+        </div>
+        <div class="field">
+          <label for="linkUrl">الرابط الكامل</label>
+          <input id="linkUrl" type="url" placeholder="https://..." />
+        </div>
+      </div>
+      <div class="field-grid">
+        <div class="field">
+          <label for="linkDesc">وصف اختياري</label>
+          <input id="linkDesc" maxlength="100" placeholder="مثال: تابعنا على إنستجرام" />
+        </div>
+        <div class="field">
+          <label for="linkIcon">الأيقونة</label>
+          <select id="linkIcon">
+  <option value="facebook">Facebook</option>
+  <option value="instagram">Instagram</option>
+  <option value="tiktok">TikTok</option>
+  <option value="whatsapp">WhatsApp</option>
+  <option value="google">Google</option>
+  <option value="map">Google Maps</option>
+  <option value="website">Website</option>
+</select>
+          
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="addLink" type="button">＋ إضافة الرابط</button>
+        <button class="btn secondary" id="saveSettings" type="button">حفظ العنوان والوصف</button>
+        <button class="btn danger" id="resetPage" type="button">إعادة ضبط النموذج</button>
+      </div>
+      <div class="notice" id="notice" role="status"></div>
+      <div class="editor-list" id="editorList"></div>
+    </section>
+  </main>
+
+  <script>
+    const defaults = [
+      {name:'Facebook', desc:'تابعنا على Facebook', url:'https://facebook.com/', icon:'facebook', tone:'blue'},
+      {name:'Instagram', desc:'تابعنا على Instagram', url:'https://instagram.com/', icon:'instagram', tone:'pink'},
+      {name:'TikTok', desc:'تابعنا على TikTok', url:'https://tiktok.com/', icon:'tiktok', tone:''},
+      {name:'WhatsApp', desc:'تواصل معنا على WhatsApp', url:'https://wa.me/', icon:'whatsapp', tone:'green'},
+      {name:'Google Reviews', desc:'اترك تقييمك على Google', url:'https://www.google.com', icon:'google', tone:'cream'},
+      {name:'Google Maps', desc:'اعرف موقعنا على الخريطة', url:'https://maps.google.com/', icon:'map', tone:'blue'}
+    ];
+    
+    const storageKey = 'generic-link-hub-v1';
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(storageKey);
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+      return {title:'كل روابطك في مكان واحد', subtitle:'تابع • تواصل • اكتشف المزيد', links:defaults.map(x=>({...x}))};
+    }
+    function persist() {
+      try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch(e) {}
+    }
+    function safeUrl(value) {
+      try {
+        const u = new URL(value);
+        return ['http:', 'https:', 'mailto:', 'tel:'].includes(u.protocol) ? u.href : null;
+      } catch(e) { return null; }
+    }
+    function render() {
+      document.getElementById('pageTitle').textContent = state.title || 'كل روابطك في مكان واحد';
+      document.getElementById('pageSubtitle').textContent = state.subtitle || 'تابع • تواصل • اكتشف المزيد';
+      const linksEl = document.getElementById('links');
+      linksEl.replaceChildren();
+      state.links.forEach((item, index) => {
+        const url = safeUrl(item.url);
+        const a = document.createElement('a');
+        a.className = 'link-card ' + (item.tone || '');
+        a.href = url || '#';
+        a.target = '_blank'; a.rel = 'noopener noreferrer';
+        if (!url) { a.addEventListener('click', e => e.preventDefault()); }
+        const icon = document.createElement('div');
+        icon.className = 'link-icon ' + iconClass(item.name);
+        const icons = {
+  facebook: '<i class="fa-brands fa-facebook-f"></i>',
+  instagram: '<i class="fa-brands fa-instagram"></i>',
+  tiktok: '<i class="fa-brands fa-tiktok"></i>',
+  whatsapp: '<i class="fa-brands fa-whatsapp"></i>',
+  google: '<i class="fa-brands fa-google"></i>',
+  map: '<i class="fa-solid fa-location-dot"></i>',
+  website: '<i class="fa-solid fa-globe"></i>'
+};
+
+icon.innerHTML = icons[item.icon] || '<i class="fa-solid fa-link"></i>';
+        const copy = document.createElement('div'); copy.className = 'link-copy';
+        const title = document.createElement('div'); title.className = 'link-title'; title.textContent = item.name;
+        const desc = document.createElement('div'); desc.className = 'link-desc'; desc.textContent = item.desc || item.url;
+        copy.append(title, desc);
+        const arrow = document.createElement('span'); arrow.className = 'arrow'; arrow.textContent = '‹';
+        a.append(icon, copy, arrow); linksEl.appendChild(a);
+      });
+      document.getElementById('titleInput').value = state.title;
+      document.getElementById('subtitleInput').value = state.subtitle;
+      renderEditorList();
+      const review = state.links.find(x => /google reviews|تقييمات جوجل|قيّمنا على google/i.test(x.name));
+      document.getElementById('reviewLink').href = review && safeUrl(review.url) ? review.url : 'https://www.google.com';
+    }
+    function iconClass(name) {
+      const n = (name || '').toLowerCase();
+      if (n.includes('facebook')) return 'facebook';
+      if (n.includes('instagram')) return 'instagram';
+      if (n.includes('tiktok')) return 'tiktok';
+      if (n.includes('whatsapp')) return 'whatsapp';
+      if (n.includes('google')) return 'google';
+      if (n.includes('maps') || n.includes('خريطة')) return 'maps';
+      return 'generic';
+    }
+    function renderEditorList() {
+      const el = document.getElementById('editorList'); el.replaceChildren();
+      if (!state.links.length) { const empty = document.createElement('div'); empty.className='empty'; empty.textContent='لسه مفيش روابط. أضيفي أول رابط من النموذج فوق.'; el.appendChild(empty); return; }
+      state.links.forEach((item, index) => {
+        const row = document.createElement('div'); row.className='editor-item';
+        const label = document.createElement('span'); label.textContent = `${item.icon || '🔗'} ${item.name} — ${item.url}`;
+        const remove = document.createElement('button'); remove.type='button'; remove.textContent='حذف'; remove.className='btn danger';
+        remove.addEventListener('click', () => { state.links.splice(index,1); persist(); render(); showNotice('تم حذف الرابط.'); });
+        row.append(label, remove); el.appendChild(row);
+      });
+    }
+    function showNotice(msg) {
+      const el = document.getElementById('notice'); el.textContent=msg; el.style.display='block';
+      window.clearTimeout(showNotice.timer); showNotice.timer=window.setTimeout(()=>el.style.display='none',3500);
+    }
+    document.getElementById('toggleEditor').addEventListener('click', () => {
+      document.getElementById('editor').classList.toggle('open');
+      document.getElementById('editor').scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+    document.getElementById('saveSettings').addEventListener('click', () => {
+      state.title = document.getElementById('titleInput').value.trim() || 'كل روابطك في مكان واحد';
+      state.subtitle = document.getElementById('subtitleInput').value.trim() || 'تابع • تواصل • اكتشف المزيد';
+      persist(); render(); showNotice('تم حفظ العنوان والوصف على هذا المتصفح.');
+    });
+    document.getElementById('addLink').addEventListener('click', () => {
+      const name = document.getElementById('linkName').value.trim();
+      const rawUrl = document.getElementById('linkUrl').value.trim();
+      const desc = document.getElementById('linkDesc').value.trim();
+      const icon = document.getElementById('linkIcon').value;
+      const url = safeUrl(rawUrl);
+      if (!name) { showNotice('اكتبي اسم الرابط الأول.'); document.getElementById('linkName').focus(); return; }
+      if (!url) { showNotice('اكتبي رابطًا صحيحًا يبدأ بـ https:// أو http://.'); document.getElementById('linkUrl').focus(); return; }
+      state.links.push({name, url, desc:desc || name, icon, tone: icon==='💬'?'green':icon==='📸'?'pink':icon==='⭐'?'cream':icon==='📘'?'blue':''});
+      persist(); render();
+      document.getElementById('linkName').value=''; document.getElementById('linkUrl').value=''; document.getElementById('linkDesc').value='';
+      showNotice('تمت إضافة الرابط بنجاح.');
+    });
+    document.getElementById('resetPage').addEventListener('click', () => {
+      if (!confirm('متأكد إنك عايز ترجع النموذج الأصلي وتحذف تعديلات هذا المتصفح؟')) return;
+      try { localStorage.removeItem(storageKey); } catch(e) {}
+      state = {title:'كل روابطك في مكان واحد', subtitle:'تابع • تواصل • اكتشف المزيد', links:defaults.map(x=>({...x}))};
+      render(); showNotice('تمت إعادة ضبط النموذج.');
+    });
+    render();
+  </script>
+</body>
+</html>
